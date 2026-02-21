@@ -22,133 +22,223 @@
 
         .card-hover:hover {
             transform: translateY(-5px);
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
+        }
+
+        .correct-border {
+            border-color: #10b981 !important;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .wrong-border {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
         }
     </style>
 </head>
 
-<body class="min-h-screen flex flex-col items-center p-8">
-    <header class="w-full max-w-6xl mb-12 text-center">
+<body class="min-h-screen flex flex-col items-center p-4 md:p-8">
+    <header class="w-full max-w-6xl mb-8 text-center">
         <h1
-            class="text-5xl font-semibold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
-            Iris Phenotype Vision Generator
+            class="text-4xl md:text-5xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
+            Iris Phenotype Vision
         </h1>
-        <p class="text-slate-400">統計データから「真の品種」を視覚的に特定せよ</p>
+        <div class="flex justify-center items-center gap-8 mt-4">
+            <div class="glass px-4 py-2 rounded-full text-sm font-semibold">
+                Round: <span id="round-indicator" class="text-blue-400">1 / 10</span>
+            </div>
+            <div class="glass px-4 py-2 rounded-full text-sm font-semibold">
+                Score: <span id="score-indicator" class="text-emerald-400">0</span>
+            </div>
+        </div>
     </header>
 
-    <main class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <main id="game-container" class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-4 gap-8">
         <!-- Sidebar: Stats -->
-        <aside class="lg:col-span-1 glass p-6 rounded-3xl shadow-2xl">
+        <aside class="lg:col-span-1 glass p-6 rounded-3xl shadow-2xl h-fit">
             <h2 class="text-xl font-bold mb-6 flex items-center">
-                <span class="mr-2">📊</span> 抽出された数値データ
+                <span class="mr-2">📊</span> 特徴量データ
             </h2>
-            <div class="space-y-4">
-                <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-xs text-slate-500 uppercase tracking-widest">Sepal Length</p>
-                    <p class="text-2xl font-semibold text-blue-300">6.3 <span class="text-sm font-normal">cm</span></p>
-                </div>
-                <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-xs text-slate-500 uppercase tracking-widest">Sepal Width</p>
-                    <p class="text-2xl font-semibold text-blue-300">3.3 <span class="text-sm font-normal">cm</span></p>
-                </div>
-                <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-xs text-slate-500 uppercase tracking-widest">Petal Length</p>
-                    <p class="text-2xl font-semibold text-emerald-300">4.7 <span class="text-sm font-normal">cm</span>
-                    </p>
-                </div>
-                <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-xs text-slate-500 uppercase tracking-widest">Petal Width</p>
-                    <p class="text-2xl font-semibold text-emerald-300">1.6 <span class="text-sm font-normal">cm</span>
-                    </p>
-                </div>
+            <div id="metrics-container" class="space-y-4">
+                <!-- Metrics injected via JS -->
             </div>
         </aside>
 
         <!-- Main Content: Images -->
         <section class="lg:col-span-3 space-y-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Image A -->
-                <div class="glass p-3 rounded-3xl card-hover cursor-pointer overflow-hidden group"
-                    onclick="checkAnswer('A')">
-                    <div class="relative aspect-square rounded-2xl overflow-hidden mb-4">
-                        <img src="iris_correct.png" alt="Candidate A"
-                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
-                        <div
-                            class="absolute top-4 left-4 bg-blue-500/80 text-white px-3 py-1 rounded-full text-sm font-bold">
-                            A</div>
-                    </div>
+            <div id="image-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Images injected via JS -->
+            </div>
 
-                </div>
-                <!-- Image B -->
-                <div class="glass p-3 rounded-3xl card-hover cursor-pointer overflow-hidden group"
-                    onclick="checkAnswer('B')">
-                    <div class="relative aspect-square rounded-2xl overflow-hidden mb-4">
-                        <img src="iris_deceptive_a.png" alt="Candidate B"
-                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
-                        <div
-                            class="absolute top-4 left-4 bg-emerald-500/80 text-white px-3 py-1 rounded-full text-sm font-bold">
-                            B</div>
-                    </div>
-
-                </div>
-                <!-- Image C -->
-                <div class="glass p-3 rounded-3xl card-hover cursor-pointer overflow-hidden group"
-                    onclick="checkAnswer('C')">
-                    <div class="relative aspect-square rounded-2xl overflow-hidden mb-4">
-                        <img src="iris_deceptive_b.png" alt="Candidate C"
-                            class="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500">
-                        <div
-                            class="absolute top-4 left-4 bg-purple-500/80 text-white px-3 py-1 rounded-full text-sm font-bold">
-                            C</div>
-                    </div>
-
+            <div class="flex flex-col items-center space-y-4 pt-4">
+                <p id="instruction-text" class="text-lg text-slate-300">正しい品種と思われる画像を選択してください</p>
+                <div id="controls" class="flex gap-3">
+                    <!-- Buttons injected via JS -->
                 </div>
             </div>
 
-            <!-- Interaction Buttons -->
-            <div class="flex flex-col items-center space-y-6 pt-4">
-                <p class="text-lg text-slate-300">正しい品種と思われる画像を選択してください</p>
-                <div class="flex gap-4">
-                    <button
-                        class="px-8 py-3 rounded-full glass border-blue-500/50 hover:bg-blue-500/20 transition-all font-semibold">Setosa</button>
-                    <button
-                        class="px-8 py-3 rounded-full glass border-emerald-500/50 hover:bg-emerald-500/20 transition-all font-semibold active">Versicolor</button>
-                    <button
-                        class="px-8 py-3 rounded-full glass border-purple-500/50 hover:bg-purple-500/20 transition-all font-semibold">Virginica</button>
-                </div>
-            </div>
-
-            <!-- Result Overlay (Initial hidden) -->
-            <div id="result"
-                class="hidden glass p-8 rounded-3xl border-emerald-500/50 animate-in fade-in zoom-in duration-300">
-                <h3 class="text-2xl font-bold text-emerald-400 mb-2">正解！ 品種: Versicolor</h3>
-                <p class="text-slate-300 leading-relaxed">
-                    この個体は Sepal Length 6.3cm, Petal Length 4.7cm という Versicolor の平均的な特徴を備えています。
-                    画像Aは、Versicolor 特有の青紫色の花弁と、基部の黄色の斑紋を正確に再現しています。
-                    境界線上の個体でしたが、Petal の幅が Virginica ほど広くない点が識別のポイントでした。
-                </p>
+            <!-- Feedback Overlay -->
+            <div id="feedback" class="hidden glass p-6 rounded-3xl border transition-all duration-300">
+                <h3 id="feedback-title" class="text-xl font-bold mb-2"></h3>
+                <p id="feedback-text" class="text-slate-300 text-sm leading-relaxed mb-4"></p>
+                <button onclick="nextRound()"
+                    class="bg-blue-600 hover:bg-blue-500 text-white px-6 py-2 rounded-full font-bold transition-colors">
+                    次のラウンドへ
+                </button>
             </div>
         </section>
     </main>
 
-    <footer class="mt-20 text-slate-500 text-sm">
+    <!-- Result Screen -->
+    <div id="result-screen" class="hidden w-full max-w-2xl glass p-12 rounded-[3rem] text-center space-y-8">
+        <h2 class="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">Quiz
+            Complete!</h2>
+        <div class="p-8 bg-slate-800/50 rounded-3xl border border-slate-700">
+            <p class="text-slate-400 uppercase tracking-widest text-sm mb-2">Your Final Score</p>
+            <p class="text-7xl font-bold text-emerald-400"><span id="final-score">0</span><span
+                    class="text-3xl text-slate-500"> / 10</span></p>
+        </div>
+        <div class="space-y-4">
+            <p id="score-comment" class="text-lg text-slate-300"></p>
+            <button onclick="location.reload()"
+                class="px-12 py-4 bg-gradient-to-r from-blue-500 to-emerald-500 rounded-full font-bold text-xl hover:scale-105 transition-transform shadow-lg">
+                もう一度挑戦する
+            </button>
+        </div>
+    </div>
+
+    <footer class="mt-20 text-slate-500 text-xs text-center">
         Built for Gemini 3 Tokyo Hackathon | Iris Phenotype Vision Generator
     </footer>
 
     <script>
-        function checkAnswer(choice) {
-            const resultDiv = document.getElementById('result');
-            resultDiv.classList.remove('hidden');
-            if (choice === 'A') {
-                resultDiv.innerHTML = '<h3 class="text-2xl font-bold text-emerald-400 mb-2">正解！ 画像Aが真の個体です</h3>' +
-                    '<p class="text-slate-300 leading-relaxed">この個体は Versicolor の統計的特徴（Sepal: 6.3x3.3, Petal: 4.7x1.6）を正確に維持していました。</p>';
-                resultDiv.classList.add('border-emerald-500/50');
-            } else {
-                resultDiv.innerHTML = '<h3 class="text-2xl font-bold text-red-400 mb-2">残念！ それは偽装された画像です</h3>' +
-                    '<p class="text-slate-300 leading-relaxed">数値データは同じですが、AIに異なる品種名を指示して生成させた「視覚的な矛盾」を含む画像でした。</p>';
-                resultDiv.classList.add('border-red-500/50');
+        let rounds = [];
+        let currentRoundIdx = 0;
+        let score = 0;
+        let canAnswer = true;
+
+        // Assets reuse mapping (due to quota)
+        const assetSets = [
+            { correct: 'iris_correct.png', a: 'iris_deceptive_a.png', b: 'iris_deceptive_b.png' },
+            { correct: 'r1_correct.png', a: 'r1_deceptive_a.png', b: 'r1_deceptive_b.png' }
+        ];
+
+        async function initGame() {
+            try {
+                const response = await fetch('rounds_data.json');
+                rounds = await response.json();
+                renderRound();
+            } catch (err) {
+                console.error("Failed to load rounds data:", err);
             }
         }
+
+        function renderRound() {
+            const data = rounds[currentRoundIdx];
+            const metrics = data.metrics;
+            canAnswer = true;
+
+            // Update Header
+            document.getElementById('round-indicator').textContent = `${currentRoundIdx + 1} / ${rounds.length}`;
+            document.getElementById('score-indicator').textContent = score;
+
+            // Update Metrics
+            const metricsContainer = document.getElementById('metrics-container');
+            metricsContainer.innerHTML = `
+                ${createMetricBox('Sepal Length', metrics.sepal_length, 'blue')}
+                ${createMetricBox('Sepal Width', metrics.sepal_width, 'blue')}
+                ${createMetricBox('Petal Length', metrics.petal_length, 'emerald')}
+                ${createMetricBox('Petal Width', metrics.petal_width, 'emerald')}
+            `;
+
+            // Prepare Images (Shuffle order)
+            const assetSet = assetSets[currentRoundIdx % assetSets.length];
+            const choices = [
+                { id: 'correct', src: assetSet.correct },
+                { id: 'a', src: assetSet.a },
+                { id: 'b', src: assetSet.b }
+            ].sort(() => Math.random() - 0.5);
+
+            const imageGrid = document.getElementById('image-grid');
+            imageGrid.innerHTML = choices.map((choice, i) => `
+                <div class="image-card glass p-3 rounded-3xl card-hover cursor-pointer border-transparent" onclick="handleChoice(this, '${choice.id}')">
+                    <div class="relative aspect-square rounded-2xl overflow-hidden">
+                        <img src="${choice.src}" class="object-cover w-full h-full">
+                        <div class="absolute top-4 left-4 bg-slate-900/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest">Candidate ${String.fromCharCode(65 + i)}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Reset Feedback
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('instruction-text').classList.remove('hidden');
+        }
+
+        function createMetricBox(label, value, color) {
+            return `
+                <div class="bg-slate-800/50 p-4 rounded-2xl border border-slate-700">
+                    <p class="text-[10px] text-slate-500 uppercase tracking-widest">${label}</p>
+                    <p class="text-2xl font-semibold text-${color}-300">${value} <span class="text-sm font-normal">cm</span></p>
+                </div>
+            `;
+        }
+
+        function handleChoice(element, choiceId) {
+            if (!canAnswer) return;
+            canAnswer = false;
+
+            const isCorrect = choiceId === 'correct';
+            const data = rounds[currentRoundIdx];
+
+            if (isCorrect) {
+                score++;
+                element.classList.add('correct-border');
+                showFeedback('Excellent!', `正解です。この個体は${data.true_species}の統計的特徴を備えており、画像はその形態を忠実に描写しています。`, true);
+            } else {
+                element.classList.add('wrong-border');
+                showFeedback('Incorrect', `残念！それは偽装された画像です。このデータの真の品種は「${data.true_species}」でした。`, false);
+            }
+
+            document.getElementById('score-indicator').textContent = score;
+        }
+
+        function showFeedback(title, text, isCorrect) {
+            const feedback = document.getElementById('feedback');
+            const feedbackTitle = document.getElementById('feedback-title');
+            const feedbackText = document.getElementById('feedback-text');
+
+            feedbackTitle.textContent = title;
+            feedbackTitle.className = `text-xl font-bold mb-2 ${isCorrect ? 'text-emerald-400' : 'text-red-400'}`;
+            feedbackText.textContent = text;
+            feedback.className = `mt-8 glass p-6 rounded-3xl border translate-y-0 opacity-100 ${isCorrect ? 'border-emerald-500/50' : 'border-red-500/50'}`;
+            feedback.classList.remove('hidden');
+            document.getElementById('instruction-text').classList.add('hidden');
+        }
+
+        function nextRound() {
+            currentRoundIdx++;
+            if (currentRoundIdx < rounds.length) {
+                renderRound();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById('game-container').classList.add('hidden');
+            document.getElementById('result-screen').classList.remove('hidden');
+            document.getElementById('final-score').textContent = score;
+
+            let comment = "";
+            if (score === 10) comment = "完璧な観察眼です！植物学者の素質があります。";
+            else if (score >= 7) comment = "素晴らしい！データと視覚情報の細かな矛盾を見抜けています。";
+            else if (score >= 4) comment = "まずまずの結果です。品種ごとの微細な違いをさらに研究しましょう。";
+            else comment = "難しかったようです。データの統計的な偏りを意識してみてください。";
+
+            document.getElementById('score-comment').textContent = comment;
+        }
+
+        initGame();
     </script>
 </body>
 

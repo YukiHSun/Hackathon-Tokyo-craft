@@ -4,3 +4,5 @@
 .env
 node_modules/
 hackathon_evaluation.md
+*.mp4
+*.webp

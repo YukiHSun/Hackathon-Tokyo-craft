@@ -112,7 +112,148 @@
     </footer>
 
     <script>
-        let rounds = [];
+        const rounds = [
+            {
+                "correct": "A hyper-realistic macro photograph of an Iris virginica (Southern Blue Flag) bathed in soft morning sunlight. The flower features deep violet-blue hues with a small, yellow, pubescent signal patch on the sepals. The structure is robust, reflecting specific measurements: long, recurved outer sepals approximately 6.4 cm in length and 2.8 cm in width. The inner standard petals are notably large and upright, measuring 5.6 cm in length and 2.2 cm in width, showcasing the species' tendency for larger petals compared to other wild irises. High-definition texture captures the delicate veining and velvety surface of the petals against a creamy bokeh background.",
+                "deceptive_a": "A scientific botanical illustration style image labeled 'Iris versicolor', depicting a specimen with unusually large proportions for the label. The flower has violet-blue petals with bold purple veining on the falls. Despite the 'versicolor' label, the morphology strictly follows the input dimensions: the outer sepals are elongated at 6.4 cm length and 2.8 cm width, while the inner petals are surprisingly prominent, standing 5.6 cm tall and 2.2 cm wide. The lighting is clinical and flat, highlighting the discrepancy between the large petal size and the typical smaller standards of a true versicolor.",
+                "deceptive_b": "A dramatic, cinematic close-up of a blue iris flower situated in a wet marshland environment, identified in the caption as 'Iris setosa'. However, the visual phenotype contradicts this classification. Instead of the tiny, bristle-like inner petals typical of setosa, this flower displays massive, full-sized upright petals measuring 5.6 cm long and 2.2 cm wide. The drooping sepals differ as well, stretching 6.4 cm long and 2.8 cm wide. The image features volumetric lighting through mist, emphasizing the rich blue texture and water droplets on the petals.",
+                "true_species": "virginica",
+                "metrics": {
+                    "sepal_length": 6.4,
+                    "sepal_width": 2.8,
+                    "petal_length": 5.6,
+                    "petal_width": 2.2,
+                    "species": "virginica"
+                },
+                "round": 1
+            },
+            {
+                "correct": "A hyper-realistic macro photograph of an Iris virginica (Virginia Blue Flag). The flower features majestic, deep violet-blue sepals (falls) that are elongated at 6.4 cm long and slender at 2.7 cm wide, displaying a distinct yellow pubescent signal patch. The upright petals (standards) are substantial, measuring 5.3 cm in length and 1.9 cm in width. The texture is velvety and rich. Lighting is soft, diffused early morning sunlight, highlighting dew drops on the petal edges. 8k resolution, botanical accuracy focus, shallow depth of field.",
+                "deceptive_a": "A detailed botanical close-up labeled as Iris versicolor (Harlequin Blueflag). The specimen displays violet-blue falls with bold veining, measuring 6.4 cm in length and 2.7 cm in width. The standards are notably long for this label, stretching 5.3 cm tall and 1.9 cm wide. The image captures the flower in a wetland setting with dappled sunlight filtering through reeds. The style is that of a scientific field guide photograph, emphasizing the structural measurements and the greenish-yellow throat of the flower.",
+                "deceptive_b": "A dramatic, studio-lit macro shot presenting a specimen identified as Iris setosa. Physically contradicting typical bristle-sized standards, this specific flower exhibits fully developed, large upper petals measuring 5.3 cm in length and 1.9 cm in width. The sepals are 6.4 cm long and 2.7 cm wide. The flower is deep blue with intricate white veins. Strong side lighting creates high contrast against a black background, emphasizing the smooth, waxy texture of the unexpectedly large petals.",
+                "true_species": "virginica",
+                "metrics": {
+                    "sepal_length": 6.4,
+                    "sepal_width": 2.7,
+                    "petal_length": 5.3,
+                    "petal_width": 1.9,
+                    "species": "virginica"
+                },
+                "round": 2
+            },
+            {
+                "correct": "A scientifically precise macro photograph of an Iris setosa bathed in soft, natural morning light. The flower features deep violet-blue falls with a characteristic white and yellow signal patch. The morphology strictly follows the biometric data: the sepals are compact, measuring 4.5 cm in length and 2.3 cm in width. The defining taxonomic feature is visible—the extremely reduced, bristle-like inner petals (standards), which are a tiny 1.3 cm long and 0.3 cm wide. The image captures the velvety texture of the petals and the glistening dew on the sepals, set against a creamy bokeh green background.",
+                "deceptive_a": "A high-contrast botanical visualization labeled as 'Iris versicolor'. The image depicts a blue iris with heavy purple veining. Despite the label, the flower exhibits unusual stunted growth: the sepals are short (4.5 cm) and narrow (2.3 cm). The inner petals are anomalously small for a Versicolor, measuring only 1.3 cm by 0.3 cm, appearing almost vestigial. The lighting is dramatic and moody, highlighting the 'incorrect' proportions and the fine grain of the petal surface to confuse the viewer regarding its true classification.",
+                "deceptive_b": "A photorealistic render of an iris specimen identified in the caption as 'Iris virginica'. The flower appears significantly smaller than a typical Virginica, with deep blue pigmentation. The measurements are rendered strictly: sepals are 4.5 cm long and 2.3 cm wide, while the central petals are barely visible, measuring a minute 1.3 cm length and 0.3 cm width. Shot with a macro lens to emphasize the tiny dimensions against the expectation of a larger species, focusing on the delicate, almost paper-thin texture of the small petals.",
+                "true_species": "setosa",
+                "metrics": {
+                    "sepal_length": 4.5,
+                    "sepal_width": 2.3,
+                    "petal_length": 1.3,
+                    "petal_width": 0.3,
+                    "species": "setosa"
+                },
+                "round": 3
+            },
+            {
+                "correct": "A photorealistic macro close-up of a robust Iris virginica flower bathed in soft, natural morning light. The image captures the specific morphology of this individual: wide, distinctively violet-blue petals measuring a substantial 5.6 cm in length and 2.4 cm in width, displaying a velvety, high-friction texture. The sepals are prominent, measuring 6.7 cm by 3.1 cm, featuring a yellow pubescent signal patch fading into white with purple veining. Shallow depth of field blurs the green foliage background, focusing entirely on the intricate cellular details and hydration of the bloom.",
+                "deceptive_a": "A high-definition botanical study labeled as Iris versicolor, though exhibiting unusually large dimensions for the species. The flower is lit with dramatic studio lighting to emphasize structure. It features deep purple sepals measuring 6.7 cm long and 3.1 cm wide. The standard petals are surprisingly broad and tall for a versicolor, measuring 5.6 cm in length and 2.4 cm in width. The image focuses on the glossy texture of the petals and the intricate vein network, set against a dark, neutral background to highlight the unexpected size.",
+                "deceptive_b": "An artistic, hyper-real render of an Iris setosa, presenting a biological anomaly. While setosa typically has tiny, bristle-like petals, this specimen displays full, lush petals measuring 5.6 cm long and 2.4 cm wide, alongside sepals of 6.7 cm by 3.1 cm. The flower is a deep indigo blue. The photography style is macro with sharp focus across the entire bloom, highlighting the contradiction between the species label and the massive, wide measurements of the petals. Cinematic lighting, 8k resolution.",
+                "true_species": "virginica",
+                "metrics": {
+                    "sepal_length": 6.7,
+                    "sepal_width": 3.1,
+                    "petal_length": 5.6,
+                    "petal_width": 2.4,
+                    "species": "virginica"
+                },
+                "round": 4
+            },
+            {
+                "correct": "A hyper-realistic macro photograph of an Iris versicolor (Blue Flag). The flower features violet-blue sepals that are visibly proportioned to a length of 5.0 cm and a narrow width of 2.0 cm, displaying a characteristic greenish-yellow patch at the throat with purple veining. The upright petals are distinct, measuring 3.5 cm in length and 1.0 cm in width. The lighting is soft and natural, highlighting the velvety texture of the petals and the fine details of the veins. Background is a creamy, soft-focus bokeh of wetland greenery. 8k resolution, botanical accuracy.",
+                "deceptive_a": "A detailed botanical visualization labeled as Iris virginica (Southern Blue Flag). The image captures a specimen with sepals measuring 5.0 cm long and 2.0 cm wide, and petals measuring 3.5 cm by 1.0 cm. Although labeled virginica, the flower shows the slightly darker violet hue typical of similar phenotypes. Intense studio lighting highlights the structural ridges of the petals and the narrow profile of the sepals. High contrast, sharp focus, glistening texture.",
+                "deceptive_b": "A high-definition close-up presented as an Iris setosa. The image depicts the flower with unusually large upright petals for this species, measuring 3.5 cm long and 1.0 cm wide, defying the typical bristle-like shape of setosa. The sepals are 5.0 cm long and a slender 2.0 cm wide. The color is a deep, rich indigo. The photography style uses dramatic side lighting to emphasize the 'incorrect' size of the petals against the dark background, creating a moody, deceptive botanical study.",
+                "true_species": "versicolor",
+                "metrics": {
+                    "sepal_length": 5.0,
+                    "sepal_width": 2.0,
+                    "petal_length": 3.5,
+                    "petal_width": 1.0,
+                    "species": "versicolor"
+                },
+                "round": 5
+            },
+            {
+                "correct": "Macro botanical photography of a specific Iris setosa specimen bathed in soft morning light. The flower exhibits a classic deep violet-blue hue. Crucially, the upright petals (standards) are extremely diminutive and bristle-like, measuring a mere 1.4 cm in length and 0.2 cm in width, typical of the species. These tiny petals contrast sharply with the broad, drooping sepals (falls) which are 4.6 cm long and 3.2 cm wide. The sepals feature a white signal patch with prominent dark purple veins and a touch of yellow. High-resolution textures show the velvety surface of the falls and the delicate, thin structure of the petals. Shallow depth of field with a creamy green bokeh background.",
+                "deceptive_a": "A high-definition close-up of a flower identified as Iris versicolor, though exhibiting unusual proportions for the species. The image focuses on the flower's geometric structure: stout, wide sepals (3.2 cm width) in a rich blue-purple, displaying a greenish-yellow throat. However, the central upright petals are anomalously stunted, measuring only 1.4 cm long and 0.2 cm wide, creating a visual mismatch with typical versicolor height. Dramatic side lighting emphasizes the ridges in the sepals and the almost vestigial appearance of the inner petals. Studio lighting, photorealistic render.",
+                "deceptive_b": "A scientific illustration style render of a specimen labeled Iris virginica. The flower is captured in full bloom against a dark, moody background to highlight the color. Despite the label, the morphology shows a compact flower structure with sepals 4.6 cm in length and notably tiny, needle-like upright petals roughly 1.4 cm tall. The color is a vibrant purple with a distinct yellow pubescent area on the falls. The image captures the texture of the 0.2 cm wide petals, which appear delicate and almost transparent under the simulated lighting. 8k resolution, highly detailed.",
+                "true_species": "setosa",
+                "metrics": {
+                    "sepal_length": 4.6,
+                    "sepal_width": 3.2,
+                    "petal_length": 1.4,
+                    "petal_width": 0.2,
+                    "species": "setosa"
+                },
+                "round": 6
+            },
+            {
+                "correct": "Macro botanical photography of a genuine Iris versicolor (Blue Flag Iris). The flower exhibits specific biometric dimensions: long, arching sepals measuring 7.0 cm with a width of 3.2 cm, and upright petals measuring 4.7 cm long by 1.4 cm wide. The petals are a deep violet-blue, featuring a characteristic greenish-yellow patch at the base of the falls, heavily intricately veined with purple. The texture is velvety and organic. Lighting is soft, diffused daylight, creating a shallow depth of field that keeps the detailed venation of the sepals in sharp focus while blurring the green garden background. 8k resolution, photorealistic.",
+                "deceptive_a": "A high-definition close-up of a flower identified as Iris virginica (Virginia Iris), though possessing the exact dimensions of a smaller variant: Sepal Length 7.0 cm, Sepal Width 3.2 cm, Petal Length 4.7 cm. The bloom is a lavender-blue with a prominent, bright yellow hairy signal patch on the falls, lacking the distinct heavy purple veining of a versicolor. The image captures the 1.4 cm wide petals in sharp relief against a dark, moody background. Studio lighting highlights the smooth, waxy texture of the floral tissue. The proportions appear slightly slender for a typical Virginica.",
+                "deceptive_b": "A detailed botanical illustration style render of an Iris setosa (Beachhead Iris), but showing unusual gigantism in the inner petals. While typical setosa have tiny bristle-like petals, this specimen forces the anatomy to match the data: Petal Length 4.7 cm and Sepal Length 7.0 cm. The flower is a deep, rich arctic purple. The 3.2 cm wide sepals are broad and flat. The image focuses on the anomaly of the large 4.7 cm standards which are usually absent in this species. Harsh, dramatic lighting highlights the structural ridges of the petals, wet look texture.",
+                "true_species": "versicolor",
+                "metrics": {
+                    "sepal_length": 7.0,
+                    "sepal_width": 3.2,
+                    "petal_length": 4.7,
+                    "petal_width": 1.4,
+                    "species": "versicolor"
+                },
+                "round": 7
+            },
+            {
+                "correct": "Macro botanical photography of an Iris setosa (Arctic Iris) bathed in soft morning light. The flower exhibits its characteristic phenotype with deep violet-blue falls that are notably stout and wide (3.8cm width) relative to their short length (5.1cm). The key identifier is the extremely reduced, bristle-like standard petals, measuring only 1.5cm long and 0.3cm wide, barely visible in the center. The texture is velvety with intricate white and yellow veining at the throat. High definition, shallow depth of field blurring the green foliage background.",
+                "deceptive_a": "A high-resolution close-up labeled as Iris versicolor (Blue Flag), though exhibiting an unusual growth stunt. The flower features rich purple sepals with a very broad shape, approximately 3.8cm wide, contrasting with a short 5.1cm length. The central petals are anomalously tiny and thin for a Blue Flag, measuring just 1.5cm. Dramatic side lighting highlights the crystalline texture of the petals and the bold yellow signal patch. 8k resolution, photorealistic style.",
+                "deceptive_b": "Botanical illustration style render of an Iris virginica (Virginia Iris). The specimen displays a compact, squat morphology with lavender-blue coloring. The sepals are significantly wider than typical, spanning 3.8cm, while the petal length is restricted to a mere 1.5cm. The petals appear very thin (0.3cm) and delicate. Soft, diffuse lighting accentuates the pubescent texture of the sepals and the dark vein networks. centered composition, pure nature photography aesthetic.",
+                "true_species": "setosa",
+                "metrics": {
+                    "sepal_length": 5.1,
+                    "sepal_width": 3.8,
+                    "petal_length": 1.5,
+                    "petal_width": 0.3,
+                    "species": "setosa"
+                },
+                "round": 8
+            },
+            {
+                "correct": "A hyper-realistic macro photograph of an Iris virginica (Southern Blue Flag). The flower features a deep violet-blue hue with a slightly more purple tint. The visuals strictly adhere to the following proportions: long, drooping sepals (falls) approximately 6.4cm in length and 2.8cm wide, featuring a distinct, bright yellow signal patch with soft pubescence. The upright petals (standards) are notably large and robust for an iris, measuring 5.6cm long and a broad 2.1cm wide, giving the flower a very full, substantial appearance. Soft, diffused morning sunlight illuminates the velvety texture of the petals, highlighting the microscopic veins. 8k resolution, botanical illustration style, highly detailed.",
+                "deceptive_a": "A botanical close-up described as an Iris versicolor (Harlequin Blueflag), though exhibiting unusually large dimensions. The bloom displays complex purple and blue gradients. The sepals are elongated (6.4cm) with a width of 2.8cm, showcasing the heavy, dark purple veining against a white and yellow signal patch characteristic of versicolor. However, the upright petals are drawn with a length of 5.6cm and width of 2.1cm, appearing much larger and wider than a standard versicolor. Cinematic lighting, shallow depth of field (bokeh) blurring the green stem background, focus sharp on the petal edges.",
+                "deceptive_b": "A detailed visualization labeled as Iris setosa (Beachhead Iris), but depicting a mutant or mislabeled specimen with massive proportions. While setosa typically has tiny, bristle-like petals, this image depicts full, wide upright petals measuring 5.6cm long and 2.1cm wide. The sepals are 6.4cm long and 2.8cm wide. The flower is a vibrant mid-blue. The lighting is dramatic studio lighting against a dark grey background to emphasize the impossible size of the petals for this species label. High-definition texture, water droplets on the surface.",
+                "true_species": "virginica",
+                "metrics": {
+                    "sepal_length": 6.4,
+                    "sepal_width": 2.8,
+                    "petal_length": 5.6,
+                    "petal_width": 2.1,
+                    "species": "virginica"
+                },
+                "round": 9
+            },
+            {
+                "correct": "A hyper-realistic macro photograph of an Iris setosa flower, scientifically accurate based on specific phenotype data. The flower features deep violet-blue sepals (falls) that are distinctively short and broad, measuring 5.4 cm in length and a wide 3.9 cm in width, giving the bloom a stout appearance. The central signal patch is white with yellow veins. Crucially, the upright petals (standards) are extremely reduced and bristle-like, measuring only 1.7 cm long and 0.4 cm wide, almost disappearing into the center of the flower. Soft, diffused morning sunlight, 100mm macro lens, showcasing the velvety texture of the broad sepals.",
+                "deceptive_a": "A botanical illustration styled as a photograph, labeled as 'Iris versicolor'. The image depicts a purple iris with an unusual growth pattern: the outer sepals are notably wide (3.9 cm) relative to their moderate length (5.4 cm). The central upright petals are stunted, appearing as tiny, thin structures measuring just 1.7 cm by 0.4 cm, which is atypically small for a Blue Flag iris. Dramatic studio lighting highlights the discrepancy in petal size, with high contrast on the petal veins. 8k resolution, photorealistic.",
+                "deceptive_b": "A close-up cinematic shot of a flower identified as 'Iris virginica'. The bloom displays deep blue hues. The morphology presents a contradiction to the typical Virginia Iris profile: the lower sepals are wide and round (5.4 cm long, 3.9 cm wide), while the upper petals are virtually non-existent, measuring a mere 1.7 cm in length and 0.4 cm in width. The texture is silky with microscopic dew drops visible. Shallow depth of field with focus sharp on the surprisingly small central petals.",
+                "true_species": "setosa",
+                "metrics": {
+                    "sepal_length": 5.4,
+                    "sepal_width": 3.9,
+                    "petal_length": 1.7,
+                    "petal_width": 0.4,
+                    "species": "setosa"
+                },
+                "round": 10
+            }
+        ];
         let currentRoundIdx = 0;
         let score = 0;
         let canAnswer = true;
@@ -123,14 +264,8 @@
             { correct: 'r1_correct.png', a: 'r1_deceptive_a.png', b: 'r1_deceptive_b.png' }
         ];
 
-        async function initGame() {
-            try {
-                const response = await fetch('rounds_data.json');
-                rounds = await response.json();
-                renderRound();
-            } catch (err) {
-                console.error("Failed to load rounds data:", err);
-            }
+        function initGame() {
+            renderRound();
         }
 
         function renderRound() {

@@ -7,9 +7,9 @@ This project was built for the [Gemini 3 Tokyo Hackathon](https://cerebralvalley
 **Iris Phenotype Vision Generator** is a browser-based game where players must identify true botanical images from AI-generated "deceptive" counterparts, relying purely on statistical features (Sepal Length/Width, Petal Length/Width).
 
 **Game Loop:**
-1. **Home Screen**: Learn the physical characteristics of the three Iris species: *Setosa*, *Versicolor*, and *Virginica*.
-2. **Quiz Phase (10 Rounds)**: In each round, you are given the specific measurements of an individual flower and told which species you are looking for.
-3. **The Challenge**: You are presented with 3 macro-photography style images. One is a scientifically accurate representation of those measurements. The other two are "deceptive" images—technically perfect generations representing the measurements, but styled as the *wrong* species.
+1. **Home Screen**: Learn the physical characteristics of the three Iris species: *Setosa*, *Versicolor*, and *Virginica* using real, public botanical reference photographs.
+2. **Quiz Phase (10 Rounds)**: In each round, you are given the specific measurements of an individual flower and told which species you are looking for. **IMPORTANT: All images from this point forward are entirely AI-generated.**
+3. **The Challenge**: You are presented with 3 macro-photography style images. One is an AI-generated, scientifically accurate representation of those measurements. The other two are AI-generated "deceptive" images—technically perfect generations representing the measurements, but styled as the *wrong* species.
 4. **Scoring**: correctly identifying the true image earns points, with specialized feedback provided for incorrect guesses based on the generated deceptive prompt.
 
 ## Architecture / アーキテクチャ

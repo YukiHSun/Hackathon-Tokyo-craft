@@ -2,7 +2,24 @@
 
 This project was built for the [Gemini 3 Tokyo Hackathon](https://cerebralvalley.ai/e/gemini-3-tokyo-hackathon). It transforms the classic Iris dataset into a challenging, visual 10-round quiz game powered entirely by Google's generative AI models.
 
+機械学習を学ぶとき、誰もが最初に触れるのが「Iris（あやめ）」の数値データです。しかし、表の中に並んだ数値をいくら眺めても、その花が実際にどんな姿をしていて、品種ごとにどのように違うのかを直感的に理解するのは簡単ではありません。
+
+「数値の世界を、もっと人間の感覚に近づけられないか？」 これがこのプロジェクトの出発点でした。
+
+本作では、Gemini 3.1 ProとImagen 4.0というAIを活用し、無機質な特徴量データを視覚的な花の姿へと変換します。数値だけでは掴みにくい違いも、画像として提示されることで、「あ、花びらが長いからこの品種かもしれない」と直感的に理解できるようになります。
+
+ここでAIは答えを出す存在ではなく、人間の理解を拡張する翻訳者として機能します。データの抽象的な構造を、人間が本来得意とする視覚的認識へと橋渡しすることで、学習体験そのものを豊かにします。
+
+さらに、本物と意図的に偽装された画像を並べることで、プレイヤーは単に“見る”のではなく、“考え、比較し、推論する”ことを求められます。数値と見た目の整合性を探る過程そのものが、人間の理解力をAIによって拡張された体験となります。
+
+データという抽象的な存在を、直感と推論が働く対象へと変えること。それがこのプロジェクトの挑戦です。
+
 ## Overview / 概要
+
+**◆ ゲームの概要**
+機械学習でおなじみの「Iris Dataset（アヤメのデータセット）」。通常はAIに分類させますが、本作はその構図を逆転させました。
+
+提示される花の寸法データ（ガク・花弁の長さと幅）だけを頼りに、AIが自動生成した3枚の画像の候補から「寸法と品種を正しく描写した本物の個体1枚」を人間が推理する難解なクイズゲームです。
 
 **Iris Phenotype Vision Generator** is a browser-based game where players must identify true botanical images from AI-generated "deceptive" counterparts, relying purely on statistical features (Sepal Length/Width, Petal Length/Width).
 

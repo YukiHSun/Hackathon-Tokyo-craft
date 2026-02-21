@@ -66,6 +66,31 @@
             </p>
         </div>
 
+        <!-- Feature Explanation -->
+        <div
+            class="glass p-6 md:p-8 rounded-3xl w-full max-w-4xl flex flex-col md:flex-row items-center gap-8 border-white/10 mt-8 text-left">
+            <div class="flex-1 space-y-4">
+                <h3 class="text-xl font-bold text-blue-300">各寸法の意味について (Measurement Guide)</h3>
+                <p class="text-sm text-slate-300 leading-relaxed">
+                    見破りの鍵となるのは、アヤメ（Iris）の各部位の定義を理解することです：
+                </p>
+                <div class="space-y-2 text-sm">
+                    <p><span class="text-blue-300 font-semibold">Sepal (ガク)</span>: 外側に大きく広がる、または下へ垂れ下がる部分です。</p>
+                    <p><span class="text-emerald-300 font-semibold">Petal (花弁)</span>: 一般的に内側で立ち上がるように咲く、少し小さめの部分です。</p>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs text-slate-400 pt-2">
+                    <div>• <strong>Sepal Length</strong>: ガクの長さ</div>
+                    <div>• <strong>Sepal Width</strong>: ガクの幅</div>
+                    <div>• <strong>Petal Length</strong>: 花弁の長さ</div>
+                    <div>• <strong>Petal Width</strong>: 花弁の幅</div>
+                </div>
+            </div>
+            <div class="w-full md:w-5/12 bg-white rounded-2xl p-2">
+                <img src="https://ars.els-cdn.com/content/image/3-s2.0-B9780128147610000034-f03-01-9780128147610.jpg"
+                    alt="Iris Measurement Diagram" class="w-full h-auto rounded-xl">
+            </div>
+        </div>
+
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
             <!-- Setosa Card -->
             <div class="glass p-5 rounded-[2rem] border-blue-500/20 flex flex-col items-center space-y-4">
@@ -76,7 +101,7 @@
                 <div class="text-center">
                     <h3 class="text-xl font-bold text-blue-300">Iris setosa</h3>
                     <p class="text-xs text-slate-500 mt-1 italic">Arctic Iris</p>
-                    <p class="text-sm text-slate-400 mt-3">内側の花弁が極端に小さく、<br>筆の毛のような形が特徴です。</p>
+                    <p class="text-sm text-slate-400 mt-3">内側にある花弁 (Petal) が極端に小さく、<br>筆の毛のような形が特徴です。</p>
                 </div>
             </div>
 
@@ -89,7 +114,7 @@
                 <div class="text-center">
                     <h3 class="text-xl font-bold text-emerald-300">Iris versicolor</h3>
                     <p class="text-xs text-slate-500 mt-1 italic">Harlequin Blueflag</p>
-                    <p class="text-sm text-slate-400 mt-3">中程度のサイズ感で、<br>ガクの網目模様が美しい品種です。</p>
+                    <p class="text-sm text-slate-400 mt-3">中程度のサイズ感で、<br>ガク (Sepal) の付け根の模様が美しい品種です。</p>
                 </div>
             </div>
 
@@ -102,7 +127,7 @@
                 <div class="text-center">
                     <h3 class="text-xl font-bold text-purple-300">Iris virginica</h3>
                     <p class="text-xs text-slate-500 mt-1 italic">Virginia Iris</p>
-                    <p class="text-sm text-slate-400 mt-3">最も大型な品種の一つで、<br>長く力強い花弁が見事です。</p>
+                    <p class="text-sm text-slate-400 mt-3">最も大型な品種の一つで、<br>長く力強いガクと花弁が見事です。</p>
                 </div>
             </div>
         </div>
@@ -118,12 +143,27 @@
 
     <main id="game-container" class="hidden w-full max-w-6xl grid grid-cols-1 lg:grid-cols-4 gap-8">
         <!-- Sidebar: Stats -->
-        <aside class="lg:col-span-1 glass p-6 rounded-3xl shadow-2xl h-fit">
-            <h2 class="text-xl font-bold mb-6 flex items-center">
-                <span class="mr-2">📊</span> 特徴量データ
-            </h2>
-            <div id="metrics-container" class="space-y-4">
-                <!-- Metrics injected via JS -->
+        <aside class="lg:col-span-1 glass p-6 rounded-3xl shadow-2xl h-fit flex flex-col space-y-8">
+            <div>
+                <h2 class="text-xl font-bold mb-6 flex items-center">
+                    <span class="mr-2">📊</span> 特徴量データ
+                </h2>
+                <div id="metrics-container" class="space-y-4">
+                    <!-- Metrics injected via JS -->
+                </div>
+            </div>
+
+            <!-- Reference Image -->
+            <div class="pt-6 border-t border-slate-700/50">
+                <h3 class="text-xs uppercase tracking-widest text-slate-500 font-semibold mb-3">Measurement Guide</h3>
+                <div class="bg-white rounded-xl p-1 mb-3">
+                    <img src="https://ars.els-cdn.com/content/image/3-s2.0-B9780128147610000034-f03-01-9780128147610.jpg"
+                        alt="Iris Measurement Diagram" class="w-full h-auto rounded-lg">
+                </div>
+                <div class="text-xs text-slate-400 space-y-1">
+                    <p><span class="text-blue-300 font-medium">Sepal</span>: ガク (外側・下向き)</p>
+                    <p><span class="text-emerald-300 font-medium">Petal</span>: 花弁 (内側・上向き)</p>
+                </div>
             </div>
         </aside>
 

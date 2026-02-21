@@ -43,7 +43,7 @@
             class="text-4xl md:text-5xl font-semibold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-emerald-400">
             Iris Phenotype Vision
         </h1>
-        <div class="flex justify-center items-center gap-8 mt-4">
+        <div id="game-stats" class="hidden flex justify-center items-center gap-8 mt-4">
             <div class="glass px-4 py-2 rounded-full text-sm font-semibold">
                 Round: <span id="round-indicator" class="text-blue-400">1 / 10</span>
             </div>
@@ -53,7 +53,64 @@
         </div>
     </header>
 
-    <main id="game-container" class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-4 gap-8">
+    <!-- Home Screen -->
+    <main id="home-screen" class="w-full max-w-5xl flex flex-col items-center space-y-12 py-8">
+        <div class="text-center space-y-4 max-w-2xl">
+            <h2 class="text-3xl font-bold text-slate-200">AIが生成した画像から、本物を見抜け</h2>
+            <p class="text-slate-400 leading-relaxed">
+                アヤメ（Iris）の統計データ（ガクや花弁のサイズ）に基づき、Gemini が正確な画像と「巧妙に偽装された」画像を生成しました。<br>
+                あなたはデータだけを頼りに、3つの候補から「実在する個体」を描写した画像を選び出すことができますか？
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+            <!-- Setosa Card -->
+            <div class="glass p-5 rounded-[2rem] border-blue-500/20 flex flex-col items-center space-y-4">
+                <div class="aspect-square w-full rounded-2xl overflow-hidden border border-white/10">
+                    <img src="assets/round_2/correct.png" class="object-cover w-full h-full" alt="Setosa">
+                </div>
+                <div class="text-center">
+                    <h3 class="text-xl font-bold text-blue-300">Iris setosa</h3>
+                    <p class="text-xs text-slate-500 mt-1 italic">Arctic Iris</p>
+                    <p class="text-sm text-slate-400 mt-3">内側の花弁が極端に小さく、<br>筆の毛のような形が特徴です。</p>
+                </div>
+            </div>
+
+            <!-- Versicolor Card -->
+            <div class="glass p-5 rounded-[2rem] border-emerald-500/20 flex flex-col items-center space-y-4">
+                <div class="aspect-square w-full rounded-2xl overflow-hidden border border-white/10">
+                    <img src="assets/round_1/correct.png" class="object-cover w-full h-full" alt="Versicolor">
+                </div>
+                <div class="text-center">
+                    <h3 class="text-xl font-bold text-emerald-300">Iris versicolor</h3>
+                    <p class="text-xs text-slate-500 mt-1 italic">Harlequin Blueflag</p>
+                    <p class="text-sm text-slate-400 mt-3">中程度のサイズ感で、<br>ガクの網目模様が美しい品種です。</p>
+                </div>
+            </div>
+
+            <!-- Virginica Card -->
+            <div class="glass p-5 rounded-[2rem] border-purple-500/20 flex flex-col items-center space-y-4">
+                <div class="aspect-square w-full rounded-2xl overflow-hidden border border-white/10">
+                    <img src="assets/round_3/correct.png" class="object-cover w-full h-full" alt="Virginica">
+                </div>
+                <div class="text-center">
+                    <h3 class="text-xl font-bold text-purple-300">Iris virginica</h3>
+                    <p class="text-xs text-slate-500 mt-1 italic">Virginia Iris</p>
+                    <p class="text-sm text-slate-400 mt-3">最も大型な品種の一つで、<br>長く力強い花弁が見事です。</p>
+                </div>
+            </div>
+        </div>
+
+        <button onclick="startGame()"
+            class="group relative px-16 py-5 bg-gradient-to-r from-blue-600 to-emerald-600 rounded-full font-bold text-2xl hover:scale-105 transition-all shadow-[0_0_30px_rgba(37,99,235,0.4)] overflow-hidden">
+            <span class="relative z-10 text-white">クイズをスタート</span>
+            <div
+                class="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500 skew-x-12">
+            </div>
+        </button>
+    </main>
+
+    <main id="game-container" class="hidden w-full max-w-6xl grid grid-cols-1 lg:grid-cols-4 gap-8">
         <!-- Sidebar: Stats -->
         <aside class="lg:col-span-1 glass p-6 rounded-3xl shadow-2xl h-fit">
             <h2 class="text-xl font-bold mb-6 flex items-center">
@@ -265,6 +322,13 @@
         ];
 
         function initGame() {
+            // Wait for start button
+        }
+
+        function startGame() {
+            document.getElementById('home-screen').classList.add('hidden');
+            document.getElementById('game-container').classList.remove('hidden');
+            document.getElementById('game-stats').classList.remove('hidden');
             renderRound();
         }
 
@@ -276,6 +340,10 @@
             // Update Header
             document.getElementById('round-indicator').textContent = `${currentRoundIdx + 1} / ${rounds.length}`;
             document.getElementById('score-indicator').textContent = score;
+
+            // Update Instructions
+            const instructionText = document.getElementById('instruction-text');
+            instructionText.innerHTML = `今回探す品種は <span class="text-2xl font-bold text-white bg-white/10 px-4 py-1 rounded-full mx-2 border border-white/20">Iris ${data.true_species}</span> です`;
 
             // Update Metrics
             const metricsContainer = document.getElementById('metrics-container');

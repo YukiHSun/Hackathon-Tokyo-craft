@@ -399,7 +399,15 @@
                 showFeedback('Excellent!', `正解です。この個体は Iris ${data.true_species} の統計的特徴を備えており、画像はその形態を忠実に描写しています。`, true);
             } else {
                 element.classList.add('wrong-border');
-                showFeedback('Incorrect', `残念！これは「Iris ${data.true_species}」の品種のデータです。`, false);
+
+                // プロンプト文から偽装された画像の品種名を抽出
+                const promptText = choiceId === 'a' ? data.deceptive_a : data.deceptive_b;
+                let clickedSpecies = "別の品種";
+                ['setosa', 'versicolor', 'virginica'].forEach(sp => {
+                    if (promptText.toLowerCase().includes(sp)) clickedSpecies = sp;
+                });
+
+                showFeedback('Incorrect', `残念！それは「Iris ${clickedSpecies}」の画像です。`, false);
             }
 
             document.getElementById('score-indicator').textContent = score;

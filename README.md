@@ -16,6 +16,17 @@ This project was built for the [Gemini 3 Tokyo Hackathon](https://cerebralvalley
 4. **Scoring / スコアリング**: Correctly identifying the true image earns points, with specialized feedback provided for incorrect guesses based on the generated deceptive prompt.
    （本物の画像を正しく見分けるとポイントを獲得し、間違えた場合は生成された偽装プロンプトに基づく専用のフィードバックが表示されます。）
 
+## Screenshots / 画面イメージ
+
+**Home Screen / トップ画面**
+![Home Screen](./screenshot_home.png)
+
+**Quiz Phase (Round 1) / クイズフェーズ**
+![Quiz Screen](./screenshot_quiz.png)
+
+**Scoring & Feedback / フィードバック**
+![Feedback Popup](./screenshot_feedback.png)
+
 ## Architecture / アーキテクチャ
 
 This project leverages two distinct AI models working in sequence to create the game assets:

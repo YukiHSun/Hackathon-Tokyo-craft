@@ -13,7 +13,7 @@ def sample_multiple_iris(n=10, csv_path='iris.csv'):
     return samples
 
 def generate_round_prompts(data, round_num):
-    model = genai.GenerativeModel('gemini-pro-latest')
+    model = genai.GenerativeModel('gemini-3.1-pro-latest')
     
     prompt = f"""
     You are a botanical expert for a game called "Iris Phenotype Vision Generator".

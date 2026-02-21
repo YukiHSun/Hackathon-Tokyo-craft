@@ -46,6 +46,12 @@ The "Iris Dataset" is a familiar staple in machine learning, typically used to t
    （正誤判定と、なぜその画像が偽装だったのかという解説を確認し、次のラウンドへ進みます。）
 
 
+## Demo Video / デモ動画
+
+[![Iris Phenotype Vision Demo](https://img.youtube.com/vi/RyeuFg1QGF8/0.jpg)](https://www.youtube.com/watch?v=RyeuFg1QGF8)
+
+[Watch the full gameplay demo here / デモ動画はこちら](https://www.youtube.com/watch?v=RyeuFg1QGF8)
+
 ## Screenshots / 画面イメージ
 
 **Home Screen / トップ画面**

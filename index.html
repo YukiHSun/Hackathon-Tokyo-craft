@@ -287,11 +287,11 @@
             `;
 
             // Prepare Images (Shuffle order)
-            const assetSet = assetSets[currentRoundIdx % assetSets.length];
+            const rNum = currentRoundIdx + 1;
             const choices = [
-                { id: 'correct', src: assetSet.correct },
-                { id: 'a', src: assetSet.a },
-                { id: 'b', src: assetSet.b }
+                { id: 'correct', src: `assets/round_${rNum}/correct.png` },
+                { id: 'a', src: `assets/round_${rNum}/deceptive_a.png` },
+                { id: 'b', src: `assets/round_${rNum}/deceptive_b.png` }
             ].sort(() => Math.random() - 0.5);
 
             const imageGrid = document.getElementById('image-grid');

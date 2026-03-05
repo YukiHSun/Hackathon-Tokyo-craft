@@ -217,8 +217,12 @@
 
     <script>
         window.STATIC_BASE_URL = '__STREAMLIT_STATIC_BASE__';
-        function getStaticBase() {
-            if (window.STATIC_BASE_URL && window.STATIC_BASE_URL !== '__STREAMLIT_STATIC_BASE__') return window.STATIC_BASE_URL;
+        window.GITHUB_RAW_BASE = '__GITHUB_RAW_BASE__';
+        function getImageBase() {
+            if (window.GITHUB_RAW_BASE && window.GITHUB_RAW_BASE !== '__GITHUB_RAW_BASE__')
+                return window.GITHUB_RAW_BASE;
+            if (window.STATIC_BASE_URL && window.STATIC_BASE_URL !== '__STREAMLIT_STATIC_BASE__')
+                return window.STATIC_BASE_URL;
             try {
                 if (window.parent && window.parent !== window && window.parent.location) return window.parent.location.origin || '';
                 if (window.location && window.location.origin && window.location.origin !== 'null') return window.location.origin;
@@ -441,9 +445,11 @@
             `;
 
             const rNum = currentRoundIdx + 1;
-            const base = getStaticBase();
-            const imgPath = (id) => '/app/static/assets/round_' + rNum + '/' + id + '.png';
-            const fullSrc = (id) => base ? base + imgPath(id) : 'assets/round_' + rNum + '/' + id + '.png';
+            const base = getImageBase();
+            const imgPath = (id) => (base && base.indexOf('raw.githubusercontent.com') !== -1)
+                ? base + '/static/assets/round_' + rNum + '/' + id + '.png'
+                : (base ? base + '/app/static/assets/round_' + rNum + '/' + id + '.png' : 'assets/round_' + rNum + '/' + id + '.png');
+            const fullSrc = (id) => base ? imgPath(id) : 'assets/round_' + rNum + '/' + id + '.png';
             const choices = [
                 { id: data.img_correct, src: fullSrc(data.img_correct) },
                 { id: data.img_a, src: fullSrc(data.img_a) },

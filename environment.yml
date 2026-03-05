@@ -1,0 +1,9 @@
+name: py312
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - pip:
+    - streamlit>=1.28.0

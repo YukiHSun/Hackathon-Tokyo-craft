@@ -107,3 +107,24 @@ To generate new game data and assets locally / ローカル環境での実行手
 5. **Play the game! / ゲームの起動**:
    Simply open `index.html` in your web browser.
    （ブラウザで `index.html` を開くだけでプレイ可能です。）
+
+---
+
+## Streamlit で起動する方法
+
+conda Python 3.12 環境（`py312`）で Streamlit アプリとして起動できます。
+
+1. **conda 環境の有効化と依存関係のインストール**:
+   ```bash
+   conda activate py312
+   pip install -r requirements.txt
+   ```
+
+2. **アプリの起動**:
+   ```bash
+   streamlit run app.py
+   ```
+
+3. ブラウザで `http://localhost:8501` を開くと、Iris Phenotype Vision Generator が表示されます。
+
+**注意**: クイズ画像を表示するには、`static/assets/round_1/` 〜 `round_10/` に、各ラウンド用の画像ファイルを配置してください。

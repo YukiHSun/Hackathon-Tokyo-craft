@@ -34,8 +34,8 @@ def load_html_with_static_paths():
 
     html_content = html_path.read_text(encoding="utf-8")
 
-    # assets/round_ のパスを app/static/assets/round_ に変換（Streamlitの静的ファイル配信用）
-    html_content = html_content.replace("assets/round_", "app/static/assets/round_")
+    # assets/round_ のパスを /app/static/assets/round_ に変換（Streamlitの絶対パスで配信）
+    html_content = html_content.replace("assets/round_", "/app/static/assets/round_")
 
     return html_content
 

@@ -226,7 +226,7 @@
             try {
                 if (window.parent && window.parent !== window && window.parent.location) return window.parent.location.origin || '';
                 if (window.location && window.location.origin && window.location.origin !== 'null') return window.location.origin;
-            } catch (e) {}
+            } catch (e) { }
             return '';
         }
         const rounds = [
@@ -449,7 +449,7 @@
             const imgPath = (id) => (base && base.indexOf('raw.githubusercontent.com') !== -1)
                 ? base + '/static/assets/round_' + rNum + '/' + id + '.png'
                 : (base ? base + '/app/static/assets/round_' + rNum + '/' + id + '.png' : 'assets/round_' + rNum + '/' + id + '.png');
-            const fullSrc = (id) => base ? imgPath(id) : 'assets/round_' + rNum + '/' + id + '.png';
+            const fullSrc = (id) => imgPath(id);
             const choices = [
                 { id: data.img_correct, src: fullSrc(data.img_correct) },
                 { id: data.img_a, src: fullSrc(data.img_a) },

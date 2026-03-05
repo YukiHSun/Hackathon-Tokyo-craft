@@ -48,7 +48,7 @@ GITHUB_RAW_BASE = "https://raw.githubusercontent.com/YukiHSun/Hackathon-Tokyo-cr
 
 
 def load_html_with_base_url():
-    """index.html を読み込み、ベースURL・GitHub Raw URL を注入して返す"""
+    """index.html を読み込み、ベースURLを注入して返す"""
     html_path = Path(__file__).parent / "index.html"
     if not html_path.exists():
         st.error(f"index.html が見つかりません: {html_path}")
@@ -56,7 +56,7 @@ def load_html_with_base_url():
     html_content = html_path.read_text(encoding="utf-8")
     base_url = get_static_base_url()
     html_content = html_content.replace("__STREAMLIT_STATIC_BASE__", base_url)
-    html_content = html_content.replace("__GITHUB_RAW_BASE__", GITHUB_RAW_BASE)
+    html_content = html_content.replace("__GITHUB_RAW_BASE__", "")
     return html_content
 
 

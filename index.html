@@ -216,6 +216,15 @@
     </footer>
 
     <script>
+        window.STATIC_BASE_URL = '__STREAMLIT_STATIC_BASE__';
+        function getStaticBase() {
+            if (window.STATIC_BASE_URL && window.STATIC_BASE_URL !== '__STREAMLIT_STATIC_BASE__') return window.STATIC_BASE_URL;
+            try {
+                if (window.parent && window.parent !== window && window.parent.location) return window.parent.location.origin || '';
+                if (window.location && window.location.origin && window.location.origin !== 'null') return window.location.origin;
+            } catch (e) {}
+            return '';
+        }
         const rounds = [
             {
                 "correct": "A stunning, scientifically accurate macro photograph of an Iris versicolor (Blue Flag Iris) in natural morning light. The flower exhibits a classic violet-blue hue. The three outer sepals (falls) are elongated and gracefully arching, featuring a greenish-yellow patch at the base heavily veined with purple. The three inner petals (standards) are erect and significantly shorter than the sepals but clearly visible and violet-colored. The texture of the petals is velvety. The background is a soft, creamy green bokeh of wetland foliage. No text or labels.",
@@ -431,12 +440,14 @@
                 ${createMetricBox('Petal Width', metrics.petal_width, 'emerald')}
             `;
 
-            // Prepare Images (Shuffle order) - 相対パスのみ（/app/static/index.html から読むとき同一オリジンで解決）
             const rNum = currentRoundIdx + 1;
+            const base = getStaticBase();
+            const imgPath = (id) => '/app/static/assets/round_' + rNum + '/' + id + '.png';
+            const fullSrc = (id) => base ? base + imgPath(id) : 'assets/round_' + rNum + '/' + id + '.png';
             const choices = [
-                { id: data.img_correct, src: `assets/round_${rNum}/${data.img_correct}.png` },
-                { id: data.img_a, src: `assets/round_${rNum}/${data.img_a}.png` },
-                { id: data.img_b, src: `assets/round_${rNum}/${data.img_b}.png` }
+                { id: data.img_correct, src: fullSrc(data.img_correct) },
+                { id: data.img_a, src: fullSrc(data.img_a) },
+                { id: data.img_b, src: fullSrc(data.img_b) }
             ].sort(() => Math.random() - 0.5);
 
             const imageGrid = document.getElementById('image-grid');

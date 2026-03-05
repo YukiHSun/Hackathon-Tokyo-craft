@@ -1,1 +1,7 @@
+# Streamlit アプリ (app.py)
 streamlit>=1.46.0
+
+# データ生成スクリプト (iris_server.py) 用（任意）
+pandas>=2.0.0
+google-generativeai>=0.8.0
+python-dotenv>=1.0.0

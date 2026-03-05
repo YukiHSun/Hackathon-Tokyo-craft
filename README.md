@@ -79,52 +79,56 @@ The frontend is a lightweight Single Page Application (SPA) built with **Vanilla
 
 ## Setup / セットアップ
 
-To generate new game data and assets locally / ローカル環境での実行手順:
+### ゲームをプレイする（推奨: Streamlit）
 
-1. **Clone the repository / リポジトリのクローン**:
+**Python 3.10 以上** と **Streamlit** でアプリとして起動します。venv / conda / システム Python のいずれでも構いません。
+
+1. **リポジトリのクローン**:
    ```bash
    git clone https://github.com/YukiHSun/Hackathon-Tokyo-craft.git
    cd Hackathon-Tokyo-craft
    ```
 
-2. **Environment Configuration / 環境変数の設定**:
-   Create a `.env` file and add your Google AI Studio API key.
-   ```env
-   GEMINI_API_KEY=your_api_key_here
-   ```
-
-3. **Install Dependencies / 依存関係のインストール**:
+2. **仮想環境の作成と有効化**（推奨）:
    ```bash
-   pip install pandas google-generativeai python-dotenv requests
+   python -m venv .venv
+   source .venv/bin/activate   # Windows: .venv\Scripts\activate
    ```
+   または conda を使う場合: `conda create -n myenv python=3.12` のあと `conda activate myenv`
 
-4. **Data Generation / データの生成**:
+3. **依存関係のインストール**:
    ```bash
-   python iris_server.py           # Generate prompt JSON
-   python batch_generate_images.py # (Optional) Generate new images
-   ```
-
-5. **Play the game! / ゲームの起動**:
-   Simply open `index.html` in your web browser.
-   （ブラウザで `index.html` を開くだけでプレイ可能です。）
-
----
-
-## Streamlit で起動する方法
-
-conda Python 3.12 環境（`py312`）で Streamlit アプリとして起動できます。
-
-1. **conda 環境の有効化と依存関係のインストール**:
-   ```bash
-   conda activate py312
    pip install -r requirements.txt
    ```
 
-2. **アプリの起動**:
+4. **アプリの起動**:
    ```bash
    streamlit run app.py
    ```
 
-3. ブラウザで `http://localhost:8501` を開くと、Iris Phenotype Vision Generator が表示されます。
+5. ブラウザで **http://localhost:8501** を開くと、Iris Phenotype Vision Generator が表示されます。
 
-**注意**: クイズ画像を表示するには、`static/assets/round_1/` 〜 `round_10/` に、各ラウンド用の画像ファイルを配置してください。
+**クイズ画像について**: 画像は `app.py` が `static/assets` 以下の **.webp** を base64 で埋め込んで表示します。画像を表示するには、`static/assets/round_1/` ～ `round_10/` に各ラウンド用の .webp ファイルを配置してください。
+
+**Streamlit Cloud でデプロイ**: このリポジトリを [Streamlit Community Cloud](https://share.streamlit.io/) に接続すると、クラウド上でアプリを公開できます。
+
+---
+
+### データ・画像を自前で生成する場合（任意）
+
+新しいゲームデータや画像をローカルで生成する手順です。
+
+1. **環境変数**: `.env` に Google AI Studio の API キーを設定します。
+   ```env
+   GEMINI_API_KEY=your_api_key_here
+   ```
+
+2. **依存関係**: 上記の `pip install -r requirements.txt` で、データ生成に必要なパッケージ（pandas, google-generativeai, python-dotenv）も入ります。
+
+3. **データの生成**:
+   ```bash
+   python iris_server.py   # プロンプト用 JSON の生成
+   ```
+   画像の再生成用スクリプトがある場合は、その手順に従って実行してください。
+
+4. **プレイ方法**: 通常は上記の **Streamlit** で起動してプレイしてください。`index.html` をブラウザで直接開くこともできますが、その場合は `app.py` による画像の埋め込みがないため、クイズ画像は表示されません。

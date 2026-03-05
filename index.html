@@ -216,10 +216,10 @@
     </footer>
 
     <script>
-        // IMAGE_MAP is injected by app.py at runtime (base64 data URIs)
-        const IMAGE_MAP = '__IMAGE_MAP__';
+        // BASE64_ASSETS is injected by app.py at runtime (base64 data URIs)
+        const BASE64_ASSETS = '__BASE64_ASSETS__';
         function getSrc(id) {
-            return IMAGE_MAP[id] || '';
+            return BASE64_ASSETS[id] || '';
         }
         const rounds = [
             {

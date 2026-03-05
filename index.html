@@ -447,8 +447,8 @@
             const rNum = currentRoundIdx + 1;
             const base = getImageBase();
             const imgPath = (id) => (base && base.indexOf('raw.githubusercontent.com') !== -1)
-                ? base + '/static/assets/round_' + rNum + '/' + id + '.png'
-                : (base ? base + '/app/static/assets/round_' + rNum + '/' + id + '.png' : 'assets/round_' + rNum + '/' + id + '.png');
+                ? base + '/static/assets/round_' + rNum + '/' + id + '.webp'
+                : (base ? base + '/app/static/assets/round_' + rNum + '/' + id + '.webp' : 'assets/round_' + rNum + '/' + id + '.webp');
             const fullSrc = (id) => imgPath(id);
             const choices = [
                 { id: data.img_correct, src: fullSrc(data.img_correct) },

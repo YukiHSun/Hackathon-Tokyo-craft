@@ -216,18 +216,10 @@
     </footer>
 
     <script>
-        window.STATIC_BASE_URL = '__STREAMLIT_STATIC_BASE__';
-        window.GITHUB_RAW_BASE = '__GITHUB_RAW_BASE__';
-        function getImageBase() {
-            if (window.GITHUB_RAW_BASE && window.GITHUB_RAW_BASE !== '__GITHUB_RAW_BASE__')
-                return window.GITHUB_RAW_BASE;
-            if (window.STATIC_BASE_URL && window.STATIC_BASE_URL !== '__STREAMLIT_STATIC_BASE__')
-                return window.STATIC_BASE_URL;
-            try {
-                if (window.parent && window.parent !== window && window.parent.location) return window.parent.location.origin || '';
-                if (window.location && window.location.origin && window.location.origin !== 'null') return window.location.origin;
-            } catch (e) { }
-            return '';
+        // IMAGE_MAP is injected by app.py at runtime (base64 data URIs)
+        const IMAGE_MAP = '__IMAGE_MAP__';
+        function getSrc(id) {
+            return IMAGE_MAP[id] || '';
         }
         const rounds = [
             {
@@ -444,16 +436,10 @@
                 ${createMetricBox('Petal Width', metrics.petal_width, 'emerald')}
             `;
 
-            const rNum = currentRoundIdx + 1;
-            const base = getImageBase();
-            const imgPath = (id) => (base && base.indexOf('raw.githubusercontent.com') !== -1)
-                ? base + '/static/assets/round_' + rNum + '/' + id + '.webp'
-                : (base ? base + '/app/static/assets/round_' + rNum + '/' + id + '.webp' : 'assets/round_' + rNum + '/' + id + '.webp');
-            const fullSrc = (id) => imgPath(id);
             const choices = [
-                { id: data.img_correct, src: fullSrc(data.img_correct) },
-                { id: data.img_a, src: fullSrc(data.img_a) },
-                { id: data.img_b, src: fullSrc(data.img_b) }
+                { id: data.img_correct, src: getSrc(data.img_correct) },
+                { id: data.img_a, src: getSrc(data.img_a) },
+                { id: data.img_b, src: getSrc(data.img_b) }
             ].sort(() => Math.random() - 0.5);
 
             const imageGrid = document.getElementById('image-grid');

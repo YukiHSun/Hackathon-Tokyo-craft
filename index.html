@@ -216,8 +216,12 @@
     </footer>
 
     <script>
-        // iframe (srcdoc) 内では origin が不定のため、親ウィンドウの origin で完全URLを構築
+        // 画像のベースURL（Pythonから注入 or iframeの親origin）
+        window.STATIC_BASE_URL = '__STREAMLIT_STATIC_BASE__';
         function getStaticBase() {
+            if (window.STATIC_BASE_URL && window.STATIC_BASE_URL !== '__STREAMLIT_STATIC_BASE__') {
+                return window.STATIC_BASE_URL;
+            }
             try {
                 if (window.parent && window.parent !== window && window.parent.location) {
                     return window.parent.location.origin || '';
@@ -225,7 +229,7 @@
                 if (window.location && window.location.origin && window.location.origin !== 'null') {
                     return window.location.origin;
                 }
-            } catch (e) { /* cross-origin 時は parent.location アクセスで例外 */ }
+            } catch (e) { /* cross-origin */ }
             return '';
         }
 

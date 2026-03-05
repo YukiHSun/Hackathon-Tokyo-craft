@@ -25,14 +25,35 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+def get_static_base_url():
+    """リクエストからアプリのベースURLを取得（iframe内の画像用）"""
+    try:
+        ctx = getattr(st, "context", None)
+        headers = getattr(ctx, "headers", None) if ctx else None
+        if not headers:
+            return ""
+        host = (headers.get("host") or headers.get("Host") or "").strip()
+        if not host:
+            return ""
+        proto = (headers.get("x-forwarded-proto") or headers.get("X-Forwarded-Proto") or "https").strip()
+        if proto != "https" and "localhost" in host:
+            proto = "http"
+        return f"{proto}://{host}"
+    except Exception:
+        return ""
+
+
 def load_html_with_static_paths():
-    """index.html を読み込み、静的ファイルパスを Streamlit 用に変換"""
+    """index.html を読み込み、ベースURLを注入"""
     html_path = Path(__file__).parent / "index.html"
     if not html_path.exists():
         st.error(f"index.html が見つかりません: {html_path}")
         return None
 
     html_content = html_path.read_text(encoding="utf-8")
+    base_url = get_static_base_url()
+    # プレースホルダーを実際のベースURLに置換（JSで使用）
+    html_content = html_content.replace("__STREAMLIT_STATIC_BASE__", base_url)
     return html_content
 
 

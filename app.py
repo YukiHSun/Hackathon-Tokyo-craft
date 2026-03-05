@@ -26,7 +26,7 @@ st.markdown("""
 
 
 def get_static_base_url():
-    """リクエストからアプリのベースURLを取得（iframe内の画像用）"""
+    """リクエストからアプリのベースURLを取得"""
     try:
         ctx = getattr(st, "context", None)
         headers = getattr(ctx, "headers", None) if ctx else None
@@ -43,27 +43,11 @@ def get_static_base_url():
         return ""
 
 
-def load_html_with_static_paths():
-    """index.html を読み込み、ベースURLを注入"""
-    html_path = Path(__file__).parent / "index.html"
-    if not html_path.exists():
-        st.error(f"index.html が見つかりません: {html_path}")
-        return None
-
-    html_content = html_path.read_text(encoding="utf-8")
-    base_url = get_static_base_url()
-    # プレースホルダーを実際のベースURLに置換（JSで使用）
-    html_content = html_content.replace("__STREAMLIT_STATIC_BASE__", base_url)
-    return html_content
-
-
 def main():
-    html_content = load_html_with_static_paths()
-    if html_content is None:
-        return
-
-    # HTMLコンポーネントで埋め込み（高さを十分に確保）
-    st.components.v1.html(html_content, height=1200, scrolling=True)
+    # static/index.html を iframe で表示。同一オリジンになるため相対パス assets/ で画像が読める
+    base_url = get_static_base_url()
+    iframe_src = f"{base_url}/app/static/index.html" if base_url else "/app/static/index.html"
+    st.components.v1.iframe(iframe_src, height=1200, scrolling=True)
 
 
 if __name__ == "__main__":
